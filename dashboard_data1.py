@@ -46,6 +46,7 @@ def process_dataset(path, dataset_name):
     orders_df["timestamp"] = orders_df["timestamp"].apply(clean_timestamp)
     orders_df["timestamp"] = pd.to_datetime(orders_df["timestamp"], errors="coerce", utc=True)
     orders_df["date"] = orders_df["timestamp"].dt.strftime("%Y-%m-%d")
+    print(orders_df["timestamp"].head(10))
 
     books_df = books_df.rename(columns={"id": "book_id"})
     merged_df = orders_df.merge(books_df, on="book_id", how="left")
