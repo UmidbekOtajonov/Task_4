@@ -5,13 +5,13 @@ import yaml
 import re
 
 
-with open("data/DATA1/books.yaml", "r") as f:
+with open(r"C:\Users\user\Downloads\data\data\DATA2\books.yaml", "r") as f:
     data = yaml.safe_load(f)
 
 books_df = pd.DataFrame(data)
 books_df.columns = [col.lstrip(":") for col in books_df.columns]
 
-orders_df = pd.read_parquet("data/DATA1/orders.parquet")
+orders_df = pd.read_parquet(r"C:\Users\user\Downloads\data\data\DATA2\orders.parquet")
 orders_df.drop_duplicates(inplace=True)
 orders_df.dropna(subset=["user_id", "book_id"], inplace=True)
 orders_df["paid_price"] = orders_df["quantity"] * orders_df["unit_price"]
@@ -74,7 +74,7 @@ popular_authors = merged_df.groupby("authors_set")["book_id"].count().sort_value
 top_customer = orders_df.groupby("user_id")["paid_price_usd"].sum().sort_values(ascending=False).head(1)
 
 
-st.title("BI Dashboard - DATA1")
+st.title("BI Dashboard - DATA2")
 
 tab1, tab2, tab3 = st.tabs(["Revenue", "Users", "Authors"])
 
